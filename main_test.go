@@ -2,13 +2,13 @@ package main
 
 import "testing"
 
-type TestCase struct {
+type CleanTestCase struct {
 	input    string
 	expected string
 }
 
 func TestCleanInput(t *testing.T) {
-	cases := []TestCase{
+	cases := []CleanTestCase{
 		{
 			input:    "1 + 2   + 3  ",
 			expected: "1+2+3",
@@ -39,4 +39,13 @@ func TestCleanInput(t *testing.T) {
 		}
 
 	}
+}
+
+type ParseTestCase struct {
+	raw       string
+	formatted []string
+}
+
+func TestParseExpression(t *testing.T) {
+	// ...
 }
