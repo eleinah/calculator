@@ -23,3 +23,7 @@ func startRepl() {
 		//exp := reader.Text()
 	}
 }
+
+func main() {
+	fmt.Println("Hello, world!")
+}
