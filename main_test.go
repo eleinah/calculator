@@ -43,9 +43,48 @@ func TestCleanInput(t *testing.T) {
 
 type ParseTestCase struct {
 	raw       string
-	formatted []string
+	sectioned []string
 }
 
 func TestParseExpression(t *testing.T) {
-	// ...
+
+	cases := []ParseTestCase{
+		{
+			raw:       "1+2-3",
+			sectioned: []string{"1", "+", "2", "-", "3"},
+		},
+		{
+			raw:       "3/4-3*21",
+			sectioned: []string{"3", "/", "4", "-", "3", "*", "21"},
+		},
+		{
+			raw:       "25*23+0/1",
+			sectioned: []string{"25", "*", "23", "+", "0", "/", "1"},
+		},
+		{
+			raw:       "2514**2%2",
+			sectioned: []string{"2514", "**", "2", "%", "2"},
+		},
+	}
+
+	for _, c := range cases {
+		parsed := parseExpression(c.raw)
+
+		if len(parsed) != len(c.sectioned) {
+			t.Errorf("length mismatch between %v and %v! got: %d, want: %d\n", parsed, c.sectioned, len(parsed), len(c.sectioned))
+		}
+
+		for i, elem := range parsed {
+			if elem != c.sectioned[i] {
+				t.Errorf("section mismatch! got: %v, want: %v\nslice: %v\n", elem, c.sectioned[i], parsed)
+			}
+		}
+	}
+
+}
+
+// TODO: Come up with a better way to parse. Think: binary expression tree
+type ParseTestCaseN struct {
+	raw       string
+	sectioned map[string][]string
 }
